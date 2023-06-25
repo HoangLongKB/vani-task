@@ -1,5 +1,5 @@
-import Quiz from "@/components/quiz/quiz";
-import { QuizQuestion } from "@/types/quiz";
+import Quiz from '@/components/quiz/quiz';
+import { QuizQuestion } from '@/types/quiz';
 
 const getQuestion = async () => {
   const response = await fetch('http://localhost:3000/api/quiz', {
@@ -11,7 +11,7 @@ const getQuestion = async () => {
 };
 
 const QuizPage = async () => {
-  const questions = await getQuestion() as QuizQuestion[];
+  const questions = (await getQuestion()) as QuizQuestion[];
   return (
     <div className="h-full w-full">
       <Quiz quizQuestions={questions} />

@@ -2,7 +2,7 @@
 
 import { shuffleArray } from '@/app/libs/utils';
 import { QuizQuestion } from '@/types/quiz';
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Answer from './answer';
 import Hint from './hint';
 import VaniButton from '../ui/vani-button';
@@ -66,8 +66,10 @@ const Question = ({
   };
   return (
     <div>
-      <p className='font-semibold text-vani-purple'>Q{currentQuestionIndex + 1}</p>
-      <h3 className='text-lg font-semibold text-neutral-700'>{question}</h3>
+      <p className="font-semibold text-vani-purple">
+        Q{currentQuestionIndex + 1}
+      </p>
+      <h3 className="text-lg font-semibold text-neutral-700">{question}</h3>
       <ul
         className={`flex flex-col gap-y-2 my-10 ${
           isShowNext && 'pointer-events-none'
@@ -85,7 +87,7 @@ const Question = ({
           );
         })}
       </ul>
-      <hr className='my-5' />
+      <hr className="my-5" />
       <Hint
         isShow={showHint && !isShowNext}
         handleHintToggle={handleHintToggle}

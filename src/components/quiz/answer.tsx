@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { CheckIcon } from '@heroicons/react/24/outline';
 
@@ -34,7 +36,9 @@ const Answer = ({
       <p className={`flex items-center ${getAnswerClass()}`}>
         {option}
         <span>
-          {isCorrect && isAnswered && <CheckIcon className="inline-block h-4 w-4 ml-1 stroke-[3px]" />}
+          {isCorrect && isAnswered && (
+            <CheckIcon className="inline-block h-4 w-4 ml-1 stroke-[3px]" />
+          )}
         </span>
       </p>
       {isAnswered && !isCorrect && (
