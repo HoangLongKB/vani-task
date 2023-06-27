@@ -39,7 +39,7 @@ const ConfirmationModal = ({
 
   return (
     <ReactPortal wrapperId="react-portal-modal-container">
-      <div className="fixed inset-0 bg-orange-800/70 flex flex-col items-center overflow-hidden z-[999]">
+      <div className="fixed inset-0 bg-black/40 flex flex-col items-center overflow-hidden z-[999]">
         {Children.map(children, (child) => {
           if (!isValidElement(child)) return null;
 

@@ -6,6 +6,7 @@ type Props = {
   handleClick?: () => void;
   isLink?: boolean;
   url?: string;
+  isPrimary?: boolean;
 };
 
 const VaniButton = ({
@@ -13,7 +14,14 @@ const VaniButton = ({
   isLink = false,
   url = '',
   handleClick = () => {},
+  isPrimary = true,
 }: Props) => {
+  const buttonClass = (): string => {
+    if (isPrimary) {
+      return 'bg-vani-purple text-white border-vani-purple hover:bg-white hover:text-vani-purple';
+    }
+    return 'bg-slate-100 text-black/70 border-slate-400 hover:border-vani-purple';
+  };
   return (
     <>
       {isLink ? (
@@ -26,7 +34,7 @@ const VaniButton = ({
       ) : (
         <button
           type="button"
-          className="p-5 bg-vani-purple text-white text-xl font-semibold w-full rounded-sm shadow-xl border-[2px] border-vani-purple hover:bg-white hover:text-vani-purple transition-all duration-200 ease-in-out"
+          className={`p-5 text-xl font-semibold w-full rounded-md shadow-xl border-[2px] transition-all duration-200 ease-in-out ${buttonClass()}`}
           onClick={handleClick}
         >
           <span className="select-none">{text}</span>
