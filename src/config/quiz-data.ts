@@ -31,3 +31,4 @@ export const QUIZ_DATA: QuizQuestion[] = [
     hint: 'Your Vani Coins can be exchanged for other membership points or Vouchers',
   },
 ];
+

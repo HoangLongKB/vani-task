@@ -6,6 +6,8 @@ import React, { useEffect, useState } from 'react';
 import Answer from './answer';
 import Hint from './hint';
 import VaniButton from '../ui/vani-button';
+import ConfirmationModal from '../ui/modal/confirmation-modal';
+import NextModal from '../ui/modal/next-modal';
 
 type Props = QuizQuestion & {
   currentQuestionIndex: number;
@@ -26,10 +28,6 @@ const Question = ({
   const [showHint, setShowHint] = useState(false);
   const [shuffledOptions, setShuffledOptions] = useState<string[]>([]);
   const [isShowNext, setIsShowNext] = useState(false);
-  // console.log('options', options);
-  // console.log('answer', answer);
-  // console.log('shuffleAnswer', shuffledOptions);
-  // console.log('selectedAnswer', selectedAnswer);
 
   useEffect(() => {
     setShuffledOptions(shuffleArray([...options, ...answer]));
@@ -94,10 +92,13 @@ const Question = ({
         hint={hint}
       />
       {isShowNext && (
-        <VaniButton
-          text={isLastQuestion ? 'Done' : 'Next'}
-          handleClick={handleNextQuestion}
-        />
+        // <VaniButton
+        //   text={isLastQuestion ? 'Done' : 'Next'}
+        //   handleClick={handleNextQuestion}
+        // />
+        <ConfirmationModal isOpen={isShowNext} handleConfirm={handleNextQuestion} handleClose={() => {}} >
+          <NextModal/>
+        </ConfirmationModal>
       )}
     </div>
   );

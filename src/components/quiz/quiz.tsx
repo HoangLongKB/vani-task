@@ -4,7 +4,10 @@ import { QuizQuestion } from '@/types/quiz';
 import React, { useEffect, useState } from 'react';
 import Question from './question';
 import Complete from './complete';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
+import { useWarningEscapePage } from '@/hooks/useWarningEscapePage';
+import ConfirmationModal from '../ui/modal/confirmation-modal';
+import WarningEscapeModal from '../ui/modal/warning-escape-modal';
 
 type Props = {
   quizQuestions: QuizQuestion[];
@@ -14,36 +17,27 @@ const Quiz = ({ quizQuestions }: Props) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [isLastQuestion, setIsLastQuestion] = useState(false);
   const [showCompletionPage, setIsShowCompletePage] = useState(false);
+  const [isShowEscapeModal, setIsShowEscapeModal] = useState(false);
+  const pathname = usePathname();
 
-  const pathName = usePathname();
 
+  const openEscapeModal = (): void => {
+    console.log('openEscapeModal');
+    console.log('showCompletionPage', showCompletionPage);
+    setIsShowEscapeModal(true);
+  };
 
-  useEffect(() => {
-    window.history.pushState(null, '', '/quiz');
-    const warningText =
-      'You have unsaved changes - are you sure you wish to leave this page?';
-    const handleWindowClose = (e: BeforeUnloadEvent) => {
-      return (e.returnValue = warningText);
-    };
-    const handleBackButton = (e: PopStateEvent) => {
+  const handleEscapeModalCancel = (): void => {
+    setIsShowEscapeModal(false);
+    window.history.pushState(null, '', pathname);
+  };
 
-      var r = confirm('You pressed a Back button! Are you sure?!');
+  const handleEscapeModalConfirm = (): void => {
+    setIsShowEscapeModal(false);
+    window.history.back();
+  };
 
-      if (r == true) {
-        window.history.back();
-      } else {
-        window.history.pushState(null, '', '/quiz');
-
-      }
-    };
-    window.addEventListener('beforeunload', handleWindowClose);
-    window.addEventListener('popstate', handleBackButton);
-    return () => {
-      console.log('removeEventListener');
-      window.removeEventListener('beforeunload', handleWindowClose);
-      window.removeEventListener('popstate', handleBackButton);
-    };
-  }, []);
+  useWarningEscapePage(!showCompletionPage, pathname, openEscapeModal);
 
   const handleChangeQuestion = (): void => {
     if (currentQuestionIndex === quizQuestions.length - 1) {
@@ -67,14 +61,23 @@ const Quiz = ({ quizQuestions }: Props) => {
   }
 
   return (
-    <div className="w-full h-full p-5 bg-neutral-100 text-zinc-900">
-      <Question
-        {...currentQuestion}
-        currentQuestionIndex={currentQuestionIndex}
-        changeQuestion={handleChangeQuestion}
-        isLastQuestion={isLastQuestion}
-      />
-    </div>
+    <>
+      <div className="w-full h-full p-5 bg-neutral-100 text-zinc-900">
+        <Question
+          {...currentQuestion}
+          currentQuestionIndex={currentQuestionIndex}
+          changeQuestion={handleChangeQuestion}
+          isLastQuestion={isLastQuestion}
+        />
+      </div>
+      <ConfirmationModal
+        isOpen={isShowEscapeModal}
+        handleClose={handleEscapeModalCancel}
+        handleConfirm={handleEscapeModalConfirm}
+      >
+        <WarningEscapeModal />
+      </ConfirmationModal>
+    </>
   );
 };
 
