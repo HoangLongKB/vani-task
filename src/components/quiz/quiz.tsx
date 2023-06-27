@@ -20,10 +20,7 @@ const Quiz = ({ quizQuestions }: Props) => {
   const [isShowEscapeModal, setIsShowEscapeModal] = useState(false);
   const pathname = usePathname();
 
-
   const openEscapeModal = (): void => {
-    console.log('openEscapeModal');
-    console.log('showCompletionPage', showCompletionPage);
     setIsShowEscapeModal(true);
   };
 
@@ -41,7 +38,6 @@ const Quiz = ({ quizQuestions }: Props) => {
 
   const handleChangeQuestion = (): void => {
     if (currentQuestionIndex === quizQuestions.length - 1) {
-      // Last question, show completion page
       setIsShowCompletePage(true);
     } else {
       setCurrentQuestionIndex((prev) => prev + 1);
@@ -70,13 +66,15 @@ const Quiz = ({ quizQuestions }: Props) => {
           isLastQuestion={isLastQuestion}
         />
       </div>
-      <ConfirmationModal
-        isOpen={isShowEscapeModal}
-        handleClose={handleEscapeModalCancel}
-        handleConfirm={handleEscapeModalConfirm}
-      >
-        <WarningEscapeModal />
-      </ConfirmationModal>
+      {isShowEscapeModal && (
+        <ConfirmationModal
+          isOpen={isShowEscapeModal}
+          handleClose={handleEscapeModalCancel}
+          handleConfirm={handleEscapeModalConfirm}
+        >
+          <WarningEscapeModal />
+        </ConfirmationModal>
+      )}
     </>
   );
 };

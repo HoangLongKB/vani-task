@@ -92,10 +92,6 @@ const Question = ({
         hint={hint}
       />
       {isShowNext && (
-        // <VaniButton
-        //   text={isLastQuestion ? 'Done' : 'Next'}
-        //   handleClick={handleNextQuestion}
-        // />
         <ConfirmationModal isOpen={isShowNext} handleConfirm={handleNextQuestion} handleClose={() => {}} >
           <NextModal/>
         </ConfirmationModal>
