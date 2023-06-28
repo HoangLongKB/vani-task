@@ -2,20 +2,18 @@ import { useEffect } from 'react';
 
 export const useWarningEscapePage = (
   isWarning: boolean,
-  currentPath: string,
   openModal: () => void
 ) => {
   useEffect(() => {
-    window.history.pushState(null, '', currentPath);
+    if (!isWarning) return;
+    if (window.location.hash !== '#start') {
+      window.history.pushState(null, '', '#start');
+    }
     const handleWindowClose = (e: BeforeUnloadEvent) => {
       return (e.returnValue = '');
     };
     const handleBackButton = (e: PopStateEvent) => {
-      if (isWarning) {
-        openModal();
-      } else {
-        window.history.back();
-      }
+      openModal();
     };
     window.addEventListener('beforeunload', handleWindowClose);
     window.addEventListener('popstate', handleBackButton);

@@ -5,7 +5,6 @@ import { QuizQuestion } from '@/types/quiz';
 import React, { useEffect, useState } from 'react';
 import Answer from './answer';
 import Hint from './hint';
-import VaniButton from '../ui/vani-button';
 import ConfirmationModal from '../ui/modal/confirmation-modal';
 import NextModal from '../ui/modal/next-modal';
 
@@ -92,7 +91,7 @@ const Question = ({
         hint={hint}
       />
       {isShowNext && (
-        <ConfirmationModal isOpen={isShowNext} handleConfirm={handleNextQuestion} handleClose={() => {}} >
+        <ConfirmationModal isOpen={isShowNext} handleConfirm={handleNextQuestion}>
           <NextModal/>
         </ConfirmationModal>
       )}

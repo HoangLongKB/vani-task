@@ -10,14 +10,14 @@ import { ANIMATION_TIME_MODAL } from '@/config/animation';
 type Props = {
   children: React.ReactNode;
   isOpen: boolean;
-  handleClose: () => void;
+  handleClose?: () => void;
   handleConfirm: () => void;
 };
 
 const ConfirmationModal = ({
   children,
   isOpen,
-  handleClose,
+  handleClose = () => {},
   handleConfirm,
 }: Props) => {
   const [isCloseAnimation, setIsCloseAnimation] = React.useState(false);
@@ -30,9 +30,10 @@ const ConfirmationModal = ({
 
   const handleWithAnimation = (handleCallback: () => void) => {
     setIsCloseAnimation(true);
-    setTimeout(() => {
+    const timeoutId = setTimeout(() => {
       handleCallback();
       setIsCloseAnimation(false);
+      clearTimeout(timeoutId);
     }, ANIMATION_TIME_MODAL);
   };
 
@@ -47,8 +48,12 @@ const ConfirmationModal = ({
           return cloneElement(child, {
             ...child.props,
             isCloseAnimation,
-            handleClose: () => {handleWithAnimation(handleClose)},
-            handleConfirm: () => {handleWithAnimation(handleConfirm)},
+            handleClose: () => {
+              handleWithAnimation(handleClose);
+            },
+            handleConfirm: () => {
+              handleWithAnimation(handleConfirm);
+            },
           });
         })}
       </div>

@@ -4,7 +4,7 @@ import { QuizQuestion } from '@/types/quiz';
 import React, { useEffect, useState } from 'react';
 import Question from './question';
 import Complete from './complete';
-import { usePathname, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useWarningEscapePage } from '@/hooks/useWarningEscapePage';
 import ConfirmationModal from '../ui/modal/confirmation-modal';
 import WarningEscapeModal from '../ui/modal/warning-escape-modal';
@@ -18,27 +18,30 @@ const Quiz = ({ quizQuestions }: Props) => {
   const [isLastQuestion, setIsLastQuestion] = useState(false);
   const [showCompletionPage, setIsShowCompletePage] = useState(false);
   const [isShowEscapeModal, setIsShowEscapeModal] = useState(false);
-  const pathname = usePathname();
-
+  const router = useRouter();
   const openEscapeModal = (): void => {
     setIsShowEscapeModal(true);
   };
 
   const handleEscapeModalCancel = (): void => {
     setIsShowEscapeModal(false);
-    window.history.pushState(null, '', pathname);
+    window.history.pushState(null, '', '#start');
+    if (window.location.hash !== '#start') {
+      window.history.pushState(null, '', '#start');
+    }
   };
 
   const handleEscapeModalConfirm = (): void => {
     setIsShowEscapeModal(false);
-    window.history.back();
+    router.back();
   };
 
-  useWarningEscapePage(!showCompletionPage, pathname, openEscapeModal);
+  useWarningEscapePage(!showCompletionPage, openEscapeModal);
 
   const handleChangeQuestion = (): void => {
     if (currentQuestionIndex === quizQuestions.length - 1) {
       setIsShowCompletePage(true);
+      router.back();
     } else {
       setCurrentQuestionIndex((prev) => prev + 1);
     }

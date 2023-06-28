@@ -3,10 +3,15 @@
 import React from 'react';
 import VaniButton from '../ui/vani-button';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 type Props = {};
 
 const Complete = (props: Props) => {
+  const router = useRouter();
+  const handleComplete = () => {
+    router.back();
+  };
   return (
     <div className="w-full h-full bg-vani-purple p-5 flex flex-col items-center">
       <h3 className="text-2xl text-center max-w-[350px] font-semibold mt-20">
@@ -21,7 +26,7 @@ const Complete = (props: Props) => {
         width={250}
         height={250}
       />
-      <VaniButton text="Check Coupon" isLink url="/" />
+      <VaniButton text="Check Coupon" isPrimary={false} handleClick={handleComplete} />
       <p className="text-xs font-medium opacity-80 mt-3">
         Please check Inbox and use a coupon to earn Vani Coin.
       </p>
