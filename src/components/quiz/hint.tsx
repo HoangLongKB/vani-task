@@ -13,7 +13,7 @@ const Hint = ({ isShow, hint, handleHintToggle }: Props) => {
       <p className='cursor-pointer' onClick={handleHintToggle}>
         <span className='font-semibold text-neutral-800 select-none'>Hint</span>
         <span>
-          {isShow ? <ChevronDownIcon className='h-4 w-4 inline-block ml-1 stroke-[3px]' /> : <ChevronUpIcon className='h-4 w-4 inline-block ml-1 stroke-[3px]' />}
+          {!isShow ? <ChevronDownIcon className='h-4 w-4 inline-block ml-1 stroke-[3px]' /> : <ChevronUpIcon className='h-4 w-4 inline-block ml-1 stroke-[3px]' />}
         </span>
       </p>
       {isShow && <p className='font-semibold text-sm text-neutral-500 mt-5'>{hint}</p>}

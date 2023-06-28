@@ -20,8 +20,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${poppins.variable} font-poppins`}>
-        <div className="bg-vani-purple h-[100vh] w-[100vw] flex justify-center">
-          <div className='max-w-[460px] w-full flex flex-col justify-center items-center'>{children}</div>
+        <div className="h-[100vh] w-[100vw] flex justify-center">
+          <div className='max-w-[460px] bg-vani-purple w-full flex flex-col justify-center items-center'>{children}</div>
         </div>
       </body>
     </html>
