@@ -5,6 +5,7 @@ import React, {
   useEffect,
 } from 'react';
 import ReactPortal from './react-portal';
+import { ANIMATION_TIME_MODAL } from '@/config/animation';
 
 type Props = {
   children: React.ReactNode;
@@ -32,7 +33,7 @@ const ConfirmationModal = ({
     setTimeout(() => {
       handleCallback();
       setIsCloseAnimation(false);
-    }, 200);
+    }, ANIMATION_TIME_MODAL);
   };
 
   if (!isOpen) return null;
