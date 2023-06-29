@@ -5,8 +5,8 @@ import { CheckBadgeIcon } from '@heroicons/react/24/outline';
 
 const NextModal = ({
   isCloseAnimation = false,
-  handleClose = () => {},
   handleConfirm = () => {},
+  isLastQuestion = false,
 }: Modal) => {
   return (
     <div
@@ -27,7 +27,7 @@ const NextModal = ({
         You can use Vani Barcode to earn or redeem membership points.
       </p>
       <div className="flex items-center justify-between w-full mt-5">
-        <VaniButton text="Next" handleClick={handleConfirm} />
+        <VaniButton text={isLastQuestion ? 'Complete' : 'Next'} handleClick={handleConfirm} />
       </div>
     </div>
   );

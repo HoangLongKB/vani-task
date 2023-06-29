@@ -92,7 +92,7 @@ const Question = ({
       />
       {isShowNext && (
         <ConfirmationModal isOpen={isShowNext} handleConfirm={handleNextQuestion}>
-          <NextModal/>
+          <NextModal isLastQuestion={isLastQuestion}/>
         </ConfirmationModal>
       )}
     </div>
