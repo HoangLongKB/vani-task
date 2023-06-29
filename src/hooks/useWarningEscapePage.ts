@@ -1,3 +1,4 @@
+import { TEMP_URL_HASH } from '@/config/quiz-data';
 import { useEffect } from 'react';
 
 export const useWarningEscapePage = (
@@ -6,8 +7,8 @@ export const useWarningEscapePage = (
 ) => {
   useEffect(() => {
     if (!isWarning) return;
-    if (window.location.hash !== '#start') {
-      window.history.pushState(null, '', '#start');
+    if (window.location.hash !== TEMP_URL_HASH) {
+      window.history.pushState(null, '', TEMP_URL_HASH);
     }
     const handleWindowClose = (e: BeforeUnloadEvent) => {
       return (e.returnValue = '');

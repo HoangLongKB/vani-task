@@ -32,3 +32,5 @@ export const QUIZ_DATA: QuizQuestion[] = [
   },
 ];
 
+export const TEMP_URL_HASH = '#play';
+

@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import { useWarningEscapePage } from '@/hooks/useWarningEscapePage';
 import ConfirmationModal from '../ui/modal/confirmation-modal';
 import WarningEscapeModal from '../ui/modal/warning-escape-modal';
+import { TEMP_URL_HASH } from '@/config/quiz-data';
 
 type Props = {
   quizQuestions: QuizQuestion[];
@@ -25,9 +26,9 @@ const Quiz = ({ quizQuestions }: Props) => {
 
   const handleEscapeModalCancel = (): void => {
     setIsShowEscapeModal(false);
-    window.history.pushState(null, '', '#start');
-    if (window.location.hash !== '#start') {
-      window.history.pushState(null, '', '#start');
+    window.history.pushState(null, '', TEMP_URL_HASH);
+    if (window.location.hash !== TEMP_URL_HASH) {
+      window.history.pushState(null, '', TEMP_URL_HASH);
     }
   };
 
